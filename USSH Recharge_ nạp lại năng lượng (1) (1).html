@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>USSH Recharge: nạp lại năng lượng</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap">
+<style>
+:root{--paper:#f7f3fb;--ink:#241b3a;--soft:#5d5476;--line:#ded5ee;--red:#e5484d;--blue:#2f7de1;--yellow:#f5b324;--purple:#7c4dcc;--c:var(--purple);--c-on:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#181226;--ink:#f1ecfa;--soft:#b6abcf;--line:#352b50;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#181226;--ink:#f1ecfa;--soft:#b6abcf;--line:#352b50;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.6}
+main{max-width:760px;margin:0 auto;padding:40px 22px 56px}
+h1{font-size:clamp(40px,9vw,68px);line-height:1.04;font-weight:800;letter-spacing:-.02em;margin:0 0 16px}
+h2{font-size:clamp(26px,5.5vw,34px);line-height:1.2;font-weight:800;margin:0 0 12px}
+p{margin:0 0 14px;max-width:62ch}
+.lead{color:var(--soft);font-size:20px}
+.brand{font-weight:600;color:var(--soft);margin:0 0 28px}
+.candies{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 8px}
+.candy{appearance:none;border:0;cursor:pointer;width:min(100%,168px);height:96px;background:var(--c);color:var(--c-on);font:inherit;font-weight:800;font-size:17px;line-height:1.15;
+clip-path:polygon(0 4%,15% 32%,85% 32%,100% 4%,100% 96%,85% 68%,15% 68%,0 96%);display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;transition:transform .2s}
+.candy span{display:block;max-width:100px}
+.wrap{filter:drop-shadow(0 3px 0 rgba(0,0,0,.18));flex:0 0 auto}
+.candy[aria-pressed="true"]{transform:scale(1.1)}
+.candies:has([aria-pressed="true"]) .candy[aria-pressed="false"]{opacity:.55}
+.candy:focus-visible,.btn:focus-visible,.link:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.hint{color:var(--soft);font-size:16px;margin:0}
+#panel{margin:26px 0 0;padding:26px 24px;border-left:10px solid var(--c);background:color-mix(in srgb,var(--c) 14%,var(--paper));border-radius:4px 18px 18px 4px}
+#panel[hidden]{display:none}
+#panel .msg{font-size:clamp(24px,5vw,30px);font-weight:800;line-height:1.25;margin:0 0 6px}
+#panel .who{color:var(--soft);margin:0 0 18px;font-size:16px}
+#panel h3{font-size:18px;margin:18px 0 8px}
+#panel ol{margin:0;padding-left:24px}
+#panel li{margin-bottom:8px}
+.btn{appearance:none;border:2px solid var(--ink);background:var(--ink);color:var(--paper);font:inherit;font-weight:600;font-size:17px;padding:11px 22px;border-radius:999px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.link{color:var(--ink);font-weight:600}
+section.tool{margin-top:64px;padding-top:32px;border-top:2px solid var(--line)}
+.breath{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:20px}
+.orb{width:150px;height:150px;flex:0 0 auto;display:grid;place-items:center;position:relative}
+.orb i{position:absolute;inset:0;border-radius:50%;background:var(--purple);opacity:.9;transform:scale(.62)}
+.orb b{position:relative;color:#fff;font-size:18px;text-align:center;padding:0 10px}
+.orb.in i{transform:scale(1);transition:transform 4s ease-in-out}
+.orb.out i{transform:scale(.62);transition:transform 6s ease-in-out}
+@media (prefers-reduced-motion:reduce){.orb i,.orb.in i,.orb.out i{transition:none}.candy{transition:none}}
+.count{color:var(--soft);margin:12px 0 0;font-size:16px}
+.ground{margin-top:20px;min-height:132px}
+.ground .step{font-size:clamp(24px,5vw,30px);font-weight:800;line-height:1.25;margin:0 0 6px}
+.ground .note{color:var(--soft);margin:0 0 18px}
+.help ul{padding-left:22px;margin:0 0 16px}
+.help li{margin-bottom:8px}
+.todo{border-left:6px solid var(--purple);padding:14px 18px;background:color-mix(in srgb,var(--purple) 12%,var(--paper));border-radius:4px 12px 12px 4px;font-size:17px;line-height:1.7}
+footer{margin-top:56px;padding-top:20px;border-top:2px solid var(--line);color:var(--soft);font-size:15px}
+footer p{max-width:70ch}
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">USSH Recharge</p>
+  <h1>Mệt rồi à? Chọn một viên kẹo.</h1>
+  <p class="lead">Không cần giải thích với ai. Chọn màu hợp với bạn lúc này, mình đưa bạn vài việc nhỏ làm được ngay.</p>
+
+  <div class="candies" role="group" aria-label="Chọn viên kẹo theo cảm giác của bạn">
+    <div class="wrap"><button class="candy" data-k="red" style="--c:var(--red);--c-on:#fff" aria-pressed="false"><span>Quá tải deadline</span></button></div>
+    <div class="wrap"><button class="candy" data-k="blue" style="--c:var(--blue);--c-on:#fff" aria-pressed="false"><span>Chênh vênh định hướng</span></button></div>
+    <div class="wrap"><button class="candy" data-k="yellow" style="--c:var(--yellow);--c-on:#241b3a" aria-pressed="false"><span>Cần thêm niềm vui</span></button></div>
+    <div class="wrap"><button class="candy" data-k="purple" style="--c:var(--purple);--c-on:#fff" aria-pressed="false"><span>Muốn có người nghe</span></button></div>
+  </div>
+  <p class="hint">Trang này không hỏi tên và không lưu thông tin cá nhân của bạn.</p>
+
+  <div id="panel" hidden aria-live="polite"></div>
+
+  <section class="tool" id="tho">
+    <h2>Hít thở cùng mình</h2>
+    <p>Hít vào 4 giây, thở ra 6 giây. Chỉ cần theo vòng tròn và làm 3 nhịp.</p>
+    <div class="breath">
+      <div class="orb" id="orb"><i></i><b id="orbText">Sẵn sàng</b></div>
+      <div>
+        <button class="btn" id="breathBtn">Bắt đầu</button>
+        <p class="count" id="count">Chưa có nhịp nào.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool" id="noi-dat">
+    <h2>Kéo mình về hiện tại: 5-4-3-2-1</h2>
+    <p>Khi đầu óc quay cuồng, hãy gọi tên những thứ đang ở quanh bạn.</p>
+    <div class="ground" id="ground" aria-live="polite"></div>
+    <button class="btn ghost" id="groundBtn">Bắt đầu</button>
+  </section>
+
+  <section class="tool help" id="nguoi-nghe">
+    <h2>Muốn nói chuyện với ai đó</h2>
+    <p>Nói ra không phải là yếu đuối. Bạn có thể bắt đầu từ bất kỳ ai dưới đây.</p>
+    <ul>
+      <li>Một người bạn hoặc người thân bạn tin tưởng. Chỉ cần nhắn: “Mình đang mệt, tối nay nói chuyện với mình được không?”</li>
+      <li>Thầy cô cố vấn học tập hoặc anh chị khóa trên, những người đã đi qua đoạn đường này.</li>
+      <li>Phòng Đào tạo và Công tác người học của trường.</li>
+    </ul>
+    <div class="todo"><strong>Phòng Đào tạo và Công tác người học</strong><br>Phòng 102, nhà E, 336 Nguyễn Trãi, Thanh Xuân, Hà Nội<br>Điện thoại: <a class="link" href="tel:02438583800">024.38583800</a> hoặc <a class="link" href="tel:02438585242">024.38585242</a></div>
+    <p style="margin-top:16px">Nếu bạn đang gặp nguy hiểm ngay lúc này, hãy gọi <strong>115</strong> (cấp cứu) hoặc <strong>113</strong> (công an) và nói với một người ở gần bạn.</p>
+  </section>
+
+  <footer>
+    <p>USSH Recharge là sản phẩm của nhóm sinh viên cho môn Tư duy sáng tạo và Tư duy thiết kế. Nội dung ở đây là gợi ý giúp bạn nghỉ một nhịp, không thay thế tư vấn hay điều trị từ chuyên gia.</p>
+  </footer>
+</main>
+
+<script>
+var DATA={
+ red:{c:'var(--red)',on:'#fff',msg:'Bài chưa xong không có nghĩa là bạn không đủ giỏi.',who:'Dành cho lúc deadline đè lên đầu.',
+  steps:['Đặt điện thoại xuống. Hít vào 4 giây, thở ra 6 giây, làm 3 lần.','Viết ra việc nhỏ nhất bạn có thể làm trong 10 phút tới.','Làm đúng việc đó thôi. Xong thì nghỉ 2 phút.','Đứng dậy, uống một ngụm nước, vươn vai.'],
+  tip:'Đổi chỗ ngồi sang một góc yên tĩnh trong khuôn viên cũng giúp đầu óc nhẹ hơn.',tool:true},
+ blue:{c:'var(--blue)',on:'#fff',msg:'Chưa biết mình muốn gì cũng là một đoạn đường hợp lệ.',who:'Dành cho lúc bạn tự hỏi “ra trường mình sẽ làm gì?”',
+  steps:['Viết ra 3 việc gần đây khiến bạn thấy mình có ích.','Hỏi một anh chị khóa trên một câu thôi, ví dụ: “Năm nhất anh/chị đã thử những gì để hiểu ngành mình?”','Chọn một việc nhỏ để thử trong tuần này: một CLB, một buổi hội thảo, một cuốn sách.'],
+  tip:'Ngành bạn học không quyết định bạn là ai. Bạn quyết định điều đó.',tool:false},
+ yellow:{c:'var(--yellow)',on:'#241b3a',msg:'Hôm nay bạn đã làm được nhiều hơn bạn nghĩ.',who:'Dành cho lúc bạn chỉ cần một chút niềm vui.',
+  steps:['Nhắn cho một người bạn: “Hôm nay bạn đỡ mệt hơn tớ nghĩ.”','Đi bộ 5 phút quanh sân trường, không điện thoại.','Nghe hết một bài hát bạn thích.','Kể cho ai đó một chuyện nhỏ vui trong hôm nay.'],
+  tip:'Niềm vui nhỏ vẫn là niềm vui. Không cần đợi chuyện lớn.',tool:false},
+ purple:{c:'var(--purple)',on:'#fff',msg:'Có những điều không cần tự gánh một mình.',who:'Dành cho lúc bạn muốn có ai đó lắng nghe.',
+  steps:['Nhắn hoặc gọi cho một người bạn tin. Bạn không cần nói dài, chỉ cần nói “mình đang mệt”.','Chưa muốn nói với ai? Viết vài dòng cho chính mình về điều đang nặng nhất.','Khi sẵn sàng, hãy liên hệ Phòng Đào tạo và Công tác người học của trường.'],
+  tip:'Bạn xứng đáng được lắng nghe, kể cả khi chuyện đó chưa lớn.',tool:false,help:true}
+};
+var panel=document.getElementById('panel');
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function show(k){
+  var d=DATA[k];
+  document.documentElement.style.setProperty('--c',d.c);
+  document.documentElement.style.setProperty('--c-on',d.on);
+  var h='<p class="msg">'+esc(d.msg)+'</p><p class="who">'+esc(d.who)+'</p><h3>Làm ngay</h3><ol>';
+  d.steps.forEach(function(s){h+='<li>'+esc(s)+'</li>';});
+  h+='</ol><h3>Nhớ rằng</h3><p>'+esc(d.tip)+'</p><p>';
+  if(d.tool)h+='<a class="link" href="#tho">Thở cùng mình 1 phút</a> &nbsp; ';
+  if(d.help)h+='<a class="link" href="#nguoi-nghe">Xem nơi có thể trò chuyện</a>';
+  else h+='<a class="link" href="#noi-dat">Thử bài tập 5-4-3-2-1</a>';
+  h+='</p>';
+  panel.innerHTML=h;panel.hidden=false;
+}
+document.querySelectorAll('.candy').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.candy').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    show(b.getAttribute('data-k'));
+    panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+  });
+});
+/* Breathing */
+var orb=document.getElementById('orb'),orbText=document.getElementById('orbText'),bb=document.getElementById('breathBtn'),cnt=document.getElementById('count');
+var running=false,timer=null,rounds=0;
+function phase(inh){
+  if(!running)return;
+  orb.className='orb '+(inh?'in':'out');
+  orbText.textContent=inh?'Hít vào':'Thở ra';
+  timer=setTimeout(function(){
+    if(!inh){rounds++;cnt.textContent='Đã xong '+rounds+' nhịp.';}
+    phase(!inh);
+  },inh?4000:6000);
+}
+bb.addEventListener('click',function(){
+  if(running){running=false;clearTimeout(timer);orb.className='orb';orbText.textContent='Sẵn sàng';bb.textContent='Bắt đầu lại';return;}
+  running=true;rounds=0;cnt.textContent='Đang thở cùng bạn…';bb.textContent='Dừng';phase(true);
+});
+/* Grounding */
+var G=[['Nhìn quanh và gọi tên 5 thứ bạn thấy.','Cái bàn, cửa sổ, ly nước… chỉ cần nói thầm.'],['Chạm vào 4 thứ quanh bạn.','Cảm nhận chất liệu: gỗ, vải, nhựa, mặt bàn lạnh.'],['Lắng nghe 3 âm thanh.','Tiếng quạt, tiếng bước chân, tiếng gió.'],['Tìm 2 mùi bạn ngửi được.','Mùi cà phê, mùi giấy, mùi áo của bạn.'],['Nếm 1 vị trong miệng.','Có thể là vị nước, vị kẹo, hoặc không có gì.']];
+var gi=-1,gEl=document.getElementById('ground'),gBtn=document.getElementById('groundBtn');
+gEl.innerHTML='<p class="note">Bấm “Bắt đầu”, mỗi lần một bước.</p>';
+gBtn.addEventListener('click',function(){
+  gi++;
+  if(gi<G.length){gEl.innerHTML='<p class="step">'+esc(G[gi][0])+'</p><p class="note">'+esc(G[gi][1])+'</p>';gBtn.textContent=gi<G.length-1?'Bước tiếp theo':'Xong';}
+  else if(gi===G.length){gEl.innerHTML='<p class="step">Bạn đang ở đây, ngay bây giờ.</p><p class="note">Hít một hơi thật chậm rồi quay lại việc của mình.</p>';gBtn.textContent='Làm lại';}
+  else{gi=-1;gEl.innerHTML='<p class="note">Bấm “Bắt đầu”, mỗi lần một bước.</p>';gBtn.textContent='Bắt đầu';}
+});
+</script>
+</body>
+</html>
